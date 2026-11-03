@@ -643,12 +643,12 @@ async generateNomor() {
                         <p class="text-slate-500 mt-2 text-sm font-medium">Pilih singkatan jenis naskah dinas sesuai aturan persuratan KPU.</p>
                     </div>
                     <div class="relative">
-                        <select x-model="selectedNaskah" class="w-full p-6 bg-slate-50 border-2 border-slate-200 rounded-2xl focus:border-red-600 outline-none font-black text-xl text-slate-700 appearance-none shadow-inner">
-                            <option value="">-- PILIH JENIS NASKAH --</option>
-                            <template x-for="(val, key) in filteredNaskah()">
-                                <option :value="val" x-text="key"></option>
-                            </template>
-                        </select>
+                        <select x-model="selectedNaskah" class="w-full p-4 bg-white text-slate-800 border-2 border-slate-200 rounded-2xl">
+    <option value="">-- PILIH JENIS NASKAH --</option>
+    <template x-for="(item, index) in naskahList" :key="index">
+        <option :value="item.val" x-text="item.key"></option>
+    </template>
+</select>
                         <div class="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"/></svg>
                         </div>
