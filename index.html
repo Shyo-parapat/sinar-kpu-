@@ -606,28 +606,31 @@ async generateNomor() {
                 </div>
 
                 <!-- STEP 2: KLASIFIKASI -->
-              <div x-show="step === 2" x-transition>
+   <!-- STEP 2: KLASIFIKASI -->
+<div x-show="step === 2" x-transition>
     <div class="mb-10">
         <h2 class="text-3xl font-black text-slate-800 tracking-tight">Kode Klasifikasi</h2>
-        <p class="text-slate-500 mt-2 text-sm font-medium">Pilih kode klasifikasi arsip yang sesuai dengan perihal surat.</p>
+        <p class="text-slate-500 mt-2 text-sm font-medium">Ketik atau pilih kode klasifikasi arsip yang sesuai dengan perihal surat.</p>
     </div>
 
-    <div class="relative">
-        <select x-model="inputKlasifikasi" 
-               class="w-full p-4 sm:p-6 bg-slate-50 border-2 border-slate-200 rounded-2xl mb-4 font-bold text-base sm:text-xl ...">
-            <option value="">-- PILIH KODE KLASIFIKASI --</option>
+    <div class="relative mb-4">
+        <!-- Mengubah select menjadi input text dengan datalist agar tidak memicu kotak putih besar -->
+        <input type="text" 
+               x-model="inputKlasifikasi" 
+               list="listKlasifikasi"
+               placeholder="Ketik kode atau cari klasifikasi (contoh: PP.01)..."
+               class="w-full p-4 sm:p-6 bg-slate-50 border-2 border-slate-200 rounded-2xl font-bold text-base sm:text-xl outline-none focus:border-red-600 shadow-inner uppercase">
+        
+        <datalist id="listKlasifikasi">
             <template x-for="(keterangan, kode) in dataKlasifikasi" :key="kode">
                 <option :value="kode" x-text="kode + ' - ' + keterangan"></option>
             </template>
-        </select>
-        <div class="absolute right-6 top-[38px] -translate-y-1/2 pointer-events-none text-slate-400">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"/></svg>
-        </div>
+        </datalist>
     </div>
 
     <div class="p-5 bg-amber-50 rounded-2xl mb-10 border-2 border-amber-100" x-show="inputKlasifikasi">
         <p class="text-xs font-black text-amber-700 uppercase tracking-widest mb-1">Detail Klasifikasi:</p>
-        <p class="text-base font-bold text-amber-900 italic leading-snug" x-text="getKlasifikasiKet()"></p>
+        <p class="text-base font-bold text-amber-900 italic leading-snug" x-text="getKlasifikasiKet() || 'Kode klasifikasi tidak ditemukan'"></p>
     </div>
 
     <div class="flex justify-between items-center pt-6 border-t border-slate-100">
@@ -643,12 +646,12 @@ async generateNomor() {
                         <p class="text-slate-500 mt-2 text-sm font-medium">Pilih singkatan jenis naskah dinas sesuai aturan persuratan KPU.</p>
                     </div>
                     <div class="relative">
-                       <select x-model="selectedNaskah" class="w-full p-6 bg-slate-50 border-2 border-slate-200 rounded-2xl focus:border-red-600 outline-none font-black text-xl text-slate-700 appearance-none shadow-inner">
-    <option value="">-- PILIH JENIS NASKAH --</option>
-    <template x-for="(val, key) in filteredNaskah()">
-        <option :value="val" x-text="key"></option>
-    </template>
-</select>
+                        <select x-model="selectedNaskah" class="w-full p-6 bg-slate-50 border-2 border-slate-200 rounded-2xl focus:border-red-600 outline-none font-black text-xl text-slate-700 appearance-none shadow-inner">
+                            <option value="">-- PILIH JENIS NASKAH --</option>
+                            <template x-for="(val, key) in filteredNaskah()">
+                                <option :value="val" x-text="key"></option>
+                            </template>
+                        </select>
                         <div class="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7"/></svg>
                         </div>
